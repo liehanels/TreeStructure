@@ -14,8 +14,8 @@ internal class Program
 
         TreeNode software = new TreeNode("\nSoftware issues\n");
         TreeNode install = new TreeNode("1. Installation\n");
-        TreeNode bugs = new TreeNode("2. Bugs\n");
-        TreeNode removal = new TreeNode("3. Removal\n");
+        TreeNode removal = new TreeNode("2. Removal\n");
+        TreeNode bugs = new TreeNode("3. Bugs\n");
 
         TreeNode hardware = new TreeNode("\nHardware issues\n");
         TreeNode faulty = new TreeNode("1. Faulty\n");
@@ -37,15 +37,17 @@ internal class Program
         hardware.Children.Add(upgrade);
         root.Children.Add(enquiries);
         enquiries.Children.Add(business);
-        business.Children.Add(personal);
+        enquiries.Children.Add(personal);
         while (exit == false)
         {
+            TreeNode issue;
+            int input;
             switch (option)
             {
                 case 1:
                     networkMenu();
-                    int input = int.Parse("0" + Console.ReadLine());
-                    TreeNode issue = new TreeNode(describeIssue());
+                    input = int.Parse("0" + Console.ReadLine());
+                    issue = new TreeNode(describeIssue());
                     switch (input)
                     {
                         case 1:
@@ -63,10 +65,68 @@ internal class Program
                     }
                     break;
                 case 2:
+                    softwareMenu();
+                    input = int.Parse("0" + Console.ReadLine());
+                    issue = new TreeNode(describeIssue());
+                    switch (input)
+                    {
+                        case 1:
+                            install.Children.Add(issue);
+                            option = 0;
+                            break;
+                        case 2:
+                            removal.Children.Add(issue);
+                            option = 0;
+                            break;
+                        case 3:
+                            bugs.Children.Add(issue);
+                            option = 0;
+                            break;
+                        default:
+                            Console.Clear();
+                            option = 0;
+                            break;
+                    }
                     break;
                 case 3:
+                    hardwareMenu();
+                    input = int.Parse("0" + Console.ReadLine());
+                    issue = new TreeNode(describeIssue());
+                    switch (input)
+                    {
+                        case 1:
+                            faulty.Children.Add(issue);
+                            option = 0;
+                            break;
+                        case 2:
+                            upgrade.Children.Add(issue);
+                            option = 0;
+                            break;
+                        default:
+                            Console.Clear();
+                            option = 0;
+                            break;
+                    }
                     break;
                 case 4:
+                    enquiriesMenu();
+                    input = int.Parse("0" + Console.ReadLine());
+                    issue = new TreeNode(describeIssue());
+                    switch (input)
+                    {
+                        case 1:
+                            business.Children.Add(issue);
+                            option = 0;
+                            break;
+                        case 2:
+                            personal.Children.Add(issue);
+                            option = 0;
+                            break;
+                        default:
+                            Console.Clear();
+                            option = 0;
+                            break;
+                    }
                     break;
                 case 5:
                     TraverseTree(root);
@@ -116,21 +176,13 @@ internal class Program
     private static void enquiriesMenu()
     {
         Console.WriteLine("Please select an option:");
-        Console.WriteLine("1. Network");
-        Console.WriteLine("2. Software");
-        Console.WriteLine("3. Hardware");
-        Console.WriteLine("4. General");
-    }
-    private static void generalEnquiriesMenu()
-    {
-        Console.WriteLine("Please select an option:");
         Console.WriteLine("1. Business");
         Console.WriteLine("2. Personal");
     }
     private static string describeIssue()
     {
         Console.WriteLine("Describe your issue:");
-        return "\t" + Console.ReadLine() + "\n";
+        return "\t* " + Console.ReadLine() + "\n";
     }
     public static void TraverseTree(TreeNode node)
     {
