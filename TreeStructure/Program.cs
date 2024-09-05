@@ -130,6 +130,7 @@ internal class Program
                     break;
                 case 5:
                     TraverseTree(root);
+                    Console.WriteLine("\n<press enter to continue>");
                     Console.ReadLine();
                     option = 0;
                     break;
