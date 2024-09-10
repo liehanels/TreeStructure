@@ -137,6 +137,25 @@ internal class Program
                 case 6:
                     exit = true;
                     break;
+                case 7:
+                    Console.WriteLine("Type in keyword");
+                    string keyword = Console.ReadLine();
+                    searchTree(root, keyword);
+                    Console.WriteLine("\n<press enter to continue>");
+                    Console.ReadLine();
+                    option = 0;
+                    break;
+                case 8:
+                    TraverseTree(root);
+                    Console.WriteLine("Which Ticket to remove?");
+                    string remove = Console.ReadLine();
+                    root = removeFromTree(root, remove);
+                    Console.Clear();
+                    TraverseTree(root);
+                    Console.WriteLine("\n<press enter to continue>");
+                    Console.ReadLine();
+                    option = 0;
+                    break;
                 default:
                     displayMenu();
                     option = int.Parse("0" + Console.ReadLine());
@@ -154,6 +173,8 @@ internal class Program
         Console.WriteLine("4. Enquiries");
         Console.WriteLine("5. View");
         Console.WriteLine("6. Exit");
+        Console.WriteLine("7. Search");
+        Console.WriteLine("8. Remove");
     }
     private static void networkMenu()
     {
@@ -193,6 +214,25 @@ internal class Program
         {
             TraverseTree(child);
         }
+    }
+    public static void searchTree(TreeNode node, string keyword)
+    {
+        if (node == null) { return; }
+        if (node.Data.Contains(keyword)) { Console.WriteLine(node.Data + ""); }
+        foreach (var child in node.Children)
+        {
+            searchTree(child, keyword);
+        }
+    }
+    public static TreeNode removeFromTree(TreeNode node, string keyword)
+    {
+        if (node == null) { return node; }
+        if (node.Data.Equals(keyword)) { node.Children.Remove(node); }
+        foreach (var child in node.Children)
+        {
+            removeFromTree(child, keyword);
+        }
+        return node;
     }
 }
 public class TreeNode
